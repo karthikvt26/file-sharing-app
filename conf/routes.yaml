@@ -28,6 +28,7 @@ auth:
       namespace: {{ cluster.metadata.namespaces.hasura }}
     upstreamServicePath: /
     upstreamServicePort: 80
+    enableCORS: true
     corsPolicy: allow_all
 data:
   /:
@@ -36,6 +37,7 @@ data:
       namespace: {{ cluster.metadata.namespaces.hasura }}
     upstreamServicePath: /
     upstreamServicePort: 80
+    enableCORS: true
     corsPolicy: allow_all
 filestore:
   /:
@@ -44,6 +46,7 @@ filestore:
       namespace: {{ cluster.metadata.namespaces.hasura }}
     upstreamServicePath: /
     upstreamServicePort: 80
+    enableCORS: true
     corsPolicy: allow_all
 notify:
   /:
@@ -52,4 +55,5 @@ notify:
       namespace: {{ cluster.metadata.namespaces.hasura }}
     upstreamServicePath: /
     upstreamServicePort: 80
+    enableCORS: true
     corsPolicy: allow_all
