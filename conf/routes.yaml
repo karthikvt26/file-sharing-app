@@ -57,3 +57,14 @@ notify:
     upstreamServicePort: 80
     enableCORS: true
     corsPolicy: allow_all
+
+file-check:
+  /:
+    corsPolicy: allow_all
+    upstreamService:
+      name: file-check
+      namespace: '{{ cluster.metadata.namespaces.user }}'
+    upstreamServicePath: /
+    upstreamServicePort: 80
+
+

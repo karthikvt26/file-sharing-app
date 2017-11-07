@@ -14,3 +14,9 @@ remotes:
     #     container-name:
     #       path: services/app
     #       dockerfile: services/app/Dockerfile
+
+    '{{ cluster.metadata.namespaces.user }}.file-check':
+      file-check:
+        dockerfile: microservices/file-check/Dockerfile
+        path: microservices/file-check
+
