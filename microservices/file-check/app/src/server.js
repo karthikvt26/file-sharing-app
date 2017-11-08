@@ -42,6 +42,9 @@ app.get('/check_req', function( req, res ) {
     }
   }
 
+  console.log('STRIN');
+  console.log(JSON.stringify(options));
+
   return rp(options)
   .then( function( resp ) {
     console.log('Response');
