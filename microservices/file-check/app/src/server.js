@@ -60,17 +60,17 @@ app.get('/check_req', function( req, res ) {
       resp = JSON.parse(resp);
       if ( resp.length > 0 ) {
         res.status(200).send('ok');
+        return;
       }
       res.status(400).send('notok');
+      return;
     })
     .catch( function ( resp ) {
       console.log('error');
       console.log(resp);
-      res.status(400);
+      res.status(400).send('notok');
+      return;
     });
-
-    console.log('QueryObj');
-    console.log(queryObj);
   } else {
     res.status(200).send('ok');
   }
