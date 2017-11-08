@@ -36,7 +36,8 @@ app.get('/check_req', function( req, res ) {
     method: 'POST',
     body: JSON.stringify(queryObj),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'x-hasura-user-id': user_id
     }
   }
 
