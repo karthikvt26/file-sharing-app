@@ -1,0 +1,8 @@
+- args:
+    name: shared_users
+    table: user_file
+    using:
+      foreign_key_constraint_on:
+        column: user_file_id
+        table: shared_user
+  type: create_array_relationship

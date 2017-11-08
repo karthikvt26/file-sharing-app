@@ -1,0 +1,4 @@
+- args:
+    relationship: shared_users
+    table: user_file
+  type: drop_relationship

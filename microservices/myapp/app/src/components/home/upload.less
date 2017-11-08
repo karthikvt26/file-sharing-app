@@ -1,0 +1,80 @@
+.upload_wrapper {
+  z-index: 1000;
+  position: absolute;
+  background-color: #fff;
+  top: 20%;
+  padding: 40px;
+  border-radius: 10px;
+  /* transform: translate(-50%, -50%); */
+  left: 10%;
+  box-shadow: 0 0 12px 0 rgba(0,0,0,0.1), 0 10px 30px 0 rgba(0,0,0,0.2);
+}
+.display_bl {
+  display: block;
+}
+
+.display_inl {
+  display: inline-block;
+}
+
+.form_input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  input {
+    border: none;
+    border-bottom-width: medium;
+    border-bottom-style: none;
+    border-bottom-color: currentcolor;
+    border-bottom: 1px solid #eee;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  span {
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    .upload_plus {
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #3F9FFF;
+      &:hover {
+        background-color: #0073e5;
+      }
+      font-size: 30px;
+      text-align: center;
+      color: white;
+    }
+    .add_your_file_text {
+      margin-left: 10px;
+      font-size: 22px;
+    }
+  }
+}
+
+.transfer_btn_wrapper {
+  margin-top: 20px;
+  .transfer_btn_element {
+    text-align: center;
+    font-weight: 600;
+    button {
+      cursor: pointer;
+      border-radius: 21px;
+      border: none;
+      padding: 10px;
+      padding-right: 10px;
+      padding-left: 10px;
+      border: 1px solid #409FFF;
+      background-color: #409FFF;
+      color: white;
+      font-weight: 500;
+      padding-left: 50px;
+      padding-right: 50px;
+      &:hover {
+        background-color: #0073e5;
+        border-color: #0073e5;
+      }
+    }
+  }
+}

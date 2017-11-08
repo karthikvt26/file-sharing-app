@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "file_share"(user_file_id integer NOT NULL, shared_user_id integer
+      NOT NULL, shared_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY (user_file_id,
+      shared_user_id) )
+  type: run_sql
+- args:
+    name: file_share
+  type: add_existing_table_or_view

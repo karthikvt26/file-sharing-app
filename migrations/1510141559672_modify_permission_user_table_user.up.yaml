@@ -1,0 +1,10 @@
+- args:
+    permission:
+      columns:
+      - id
+      - email
+      filter:
+        id: REQ_USER_ID
+    role: user
+    table: user
+  type: create_select_permission

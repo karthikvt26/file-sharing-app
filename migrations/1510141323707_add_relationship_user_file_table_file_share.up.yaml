@@ -1,0 +1,6 @@
+- args:
+    name: user_file
+    table: file_share
+    using:
+      foreign_key_constraint_on: user_file_id
+  type: create_object_relationship

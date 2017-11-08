@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "shared_user" ADD FOREIGN KEY ("share_user_id") REFERENCES "user"
+      ("id")
+  type: run_sql

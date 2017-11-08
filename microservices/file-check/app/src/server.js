@@ -7,6 +7,8 @@ app.get('/', function (req, res) {
 });
 
 app.get('/check_req', function( req, res ) {
+  console.log('Req body');
+  console.log(req.body);
   res.status(200).send('ok');
 });
 

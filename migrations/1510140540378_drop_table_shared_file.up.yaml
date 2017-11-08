@@ -1,0 +1,3 @@
+- args:
+    sql: DROP TABLE "shared_file"
+  type: run_sql

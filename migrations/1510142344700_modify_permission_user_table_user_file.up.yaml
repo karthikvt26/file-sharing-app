@@ -1,0 +1,19 @@
+- args:
+    role: user
+    table: user_file
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - id
+      - created_at
+      - user_id
+      - file_id
+      filter:
+        $or:
+        - shared_users:
+            shared_user_id: "1"
+        - user_id: REQ_USER_ID
+    role: user
+    table: user_file
+  type: create_select_permission
