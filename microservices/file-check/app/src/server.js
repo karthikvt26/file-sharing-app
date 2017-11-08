@@ -38,7 +38,7 @@ app.get('/check_req', function( req, res ) {
     headers: {
       'Content-Type': 'application/json',
       'x-hasura-user-id': '0',
-      'x-hasura-user-role': 'admin'
+      'x-hasura-role': 'admin'
     }
   }
 
