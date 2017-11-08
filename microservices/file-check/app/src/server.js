@@ -37,7 +37,8 @@ app.get('/check_req', function( req, res ) {
     body: JSON.stringify(queryObj),
     headers: {
       'Content-Type': 'application/json',
-      'x-hasura-user-id': user_id
+      'x-hasura-user-id': '0',
+      'x-hasura-user-role': 'admin'
     }
   }
 
