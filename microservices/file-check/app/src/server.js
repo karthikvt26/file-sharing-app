@@ -24,10 +24,10 @@ app.get('/check_req', function( req, res ) {
       columns: ['id'],
       where: {
         'file_id': file_id,
-        "$or": [
+        '$or': [
           {
-            'user_id': parseInt(user_id, 10),
-          }
+            'user_id': parseInt(user_id, 10)
+          },
           {
             'shared_users': {
               'shared_user_id': parseInt(user_id, 10)
