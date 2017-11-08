@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var rp = require('request-promise');
+
 //your routes here
 app.get('/', function (req, res) {
     res.send("Hello World!");
@@ -28,6 +30,25 @@ app.get('/check_req', function( req, res ) {
       }
     }
   };
+
+  const options = {
+    url: 'http://data.hasura',
+    method: 'POST',
+    body: JSON.stringify(queryObj),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  return rp.post(options)
+  .then( function( resp ) {
+    console.log('Response');
+    console.log(resp);
+  })
+  .catch( function ( resp ) {
+    console.log('error');
+    console.log(resp);
+  });
 
   console.log('QueryObj');
   console.log(queryObj);
