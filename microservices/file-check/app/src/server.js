@@ -73,6 +73,7 @@ app.get('/check_req', function( req, res ) {
     console.log(queryObj);
   } else {
     res.status(200).send('ok');
+  }
 });
 
 app.listen(8080, function () {
