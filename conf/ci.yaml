@@ -23,6 +23,5 @@ remotes:
 
     '{{ cluster.metadata.namespaces.user }}.myapp':
       myapp:
-        dockerfile: microservices/myapp/Dockerfile
+        dockerfile: microservices/myapp/app/Dockerfile
         path: microservices/myapp
-
