@@ -32,7 +32,7 @@ app.get('/check_req', function( req, res ) {
   };
 
   const options = {
-    url: 'http://data.hasura',
+    url: 'http://data.hasura/v1/query',
     method: 'POST',
     body: JSON.stringify(queryObj),
     headers: {
