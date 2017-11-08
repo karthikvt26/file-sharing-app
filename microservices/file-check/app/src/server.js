@@ -40,7 +40,7 @@ app.get('/check_req', function( req, res ) {
     }
   }
 
-  return rp.post(options)
+  return rp(options)
   .then( function( resp ) {
     console.log('Response');
     console.log(resp);
