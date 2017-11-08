@@ -62,13 +62,13 @@ app.get('/check_req', function( req, res ) {
         res.status(200).send('ok');
         return;
       }
-      res.status(400).send('notok');
+      res.status(403).send('notok');
       return;
     })
     .catch( function ( resp ) {
       console.log('error');
       console.log(resp);
-      res.status(400).send('notok');
+      res.status(403).send('notok');
       return;
     });
   } else {
