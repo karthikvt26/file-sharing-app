@@ -13,7 +13,7 @@ app.get('/check_req', function( req, res ) {
   console.log(req.body);
   console.log(req.query);
 
-  if ( req.query.file_op == 'read' ) {
+  if ( req.query.file_op === 'read' ) {
     const file_id = req.query.file_id;
 
     const user_id = req.headers['x-hasura-user-id'];
@@ -61,7 +61,7 @@ app.get('/check_req', function( req, res ) {
       if ( resp.length > 0 ) {
         res.status(200).send('ok');
       }
-      res.status(400);
+      res.status(400).send('notok');
     })
     .catch( function ( resp ) {
       console.log('error');
