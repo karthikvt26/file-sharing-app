@@ -1,5 +1,5 @@
 description: simple file storage application using the out of the box Hasura backend
   API's viz Data API's, Auth API's, File store API
-keywords: nodejs, express, auth-api, file-api, data-api
+keywords: file, nodejs, node, express, file-sharing, data-api, auth-api
 name: file-sharing-app
 platformVersion: v0.15.8
