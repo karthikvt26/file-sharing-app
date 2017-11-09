@@ -80,7 +80,7 @@ To test this application, lets create two users as follows
 
 User can be created by using Hasura Auth API's as follows. Checkout [this](https://docs.hasura.io/0.15/manual/users/index.html) link to know more about Hasura Auth API's
 
-###To create user 1
+### To create user 1
 
 #### Request
 
@@ -290,7 +290,7 @@ curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 805da
 
 ```
 
-Lets try to access the uploaded file by assuming as user 2. Please note the `auth_token` used in the following request is the `auth_token` of user 2 created before
+Lets try to access the uploaded file by assuming as user 2. Please note that the `auth_token` used in the following request is the `auth_token` of user 2 created before
 
 #### Request
 
