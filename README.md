@@ -11,7 +11,7 @@ This project is the API backend for a file-sharing application. It has the follo
 Here are the 2 steps to deploy this application on your own Hasura free cluster.
 Before you begin, ensure you have the latest version of [hasura CLI](https://docs.hasura.io/0.15/manual/install-hasura-cli.html) tool installed.
 
-#### Step 1: Clone this project and create a free hasura cluster
+### Step 1: Clone this project and create a free hasura cluster
 
 ```sh
 $ hasura quickstart karthik/file-sharing-app
@@ -23,13 +23,15 @@ The above command does the following:
 2. Creates a new trial hasura cluster for you and sets that cluster as the default cluster for this project
 3. Initializes `file-sharing-app` as a git repository and adds the necessary git remotes.
 
-### Step 2: Deploy!
+### Step 2: Deploy to your new cluster!
 
 ```bash
 $ git add .
 $ git commit -m "Initial Commit"
 $ git push hasura master
 ```
+
+-----------------
 
 ## Project structure
 
@@ -40,6 +42,10 @@ This Hasura project contains the following:
 2. `microservices/file-check`: A nodejs microservice which implements a permissions webhook API
 3. `conf/filestore.yaml`: Configure hasura filestore APIs to use a custom permission webhook
 
+More details about how this application works are available in the last section of this README.
+
+-----------------
+
 ## Test the APIs
 
 To test and browse the APIs that are deployed, open up the api-console:
@@ -49,7 +55,7 @@ $ hasura api-console
 
 This will open up the API console on `http://localhost:9695` and will allow you to start testing your APIs.
 
-#### Step 1: Create 2 users
+### Step 1: Create 2 users
 
 On the API console, head to the API explorer. On the sidebar, choose the `Auth > Username/password login > Signup` API and create 2 users using the Hasura Auth APIs.
 
@@ -62,26 +68,27 @@ Note that each successful registration request (using the basic username/passwor
 
 _insert tokens here_
 
-#### Step 2: Upload a file as `alice`
+### Step 2: Upload a file as `alice`
 
-**Use the filestore API to upload**
+#### Use the filestore API to upload
 
 _insert image here_
 
-**Use the data API to store metadata and filesharing info**
+#### Use the data API to store metadata and filesharing info
 
 Track the file uploaded by `alice` and the fact that she has shared it with `bob`
 
 _insert image here_
 
-**Make a file download API request as `bob`**
+#### Make a file download API request as `bob`
 
 _insert image here_
 
-**Make a file download API request as `anonymous` or another user**
+#### Make a file download API request as `anonymous` or another user
 
 _insert image here_
 
+-----------------
 
 ## How these APIs work
 
