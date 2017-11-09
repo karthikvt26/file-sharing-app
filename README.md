@@ -1,372 +1,145 @@
-# Share-It: file-sharing-app
+# Share-It: A file sharing application
 
-This project builds a backend for a simple file storage application using the out of the box Hasura backend API's viz Data API's, Auth API's, File Store API's
-
-## Introduction
-
-This quickstart project comes with the following by default:
-
-1. A basic hasura project
-2. Three tables `user`, `user_file` and `file_share`
-3. A nodejs-express application which hosts the logic to grant user the access to the file or not
-
-## Description
-
-This project comes with three tables namely `user`, `user_file` and `file_share` and a nodejs-express application
-
-1. The `user` table stores the application user information like email etc. 
-2. The `user_file` table stores the uploaded files info of the user
-3. The `file_share` table stores the shared information of the file, like who it is shared and what not.
+This project is the API backend for a file-sharing application. It has the following features:
+1. Login/registration for users (via Hasura Auth APIs)
+2. Upload/Download files (via Hasura Filestore APIs)
+3. File sharing (modelled as tables in the database, APIs via Hasura Data APIs)
 
 
 ## Quickstart
 
-Follow this section to get this project working. Before you begin, ensure you have the latest version of hasura cli tool installed.
+Here are the 2 steps to deploy this application on your own Hasura free cluster.
+Before you begin, ensure you have the latest version of [hasura CLI](https://docs.hasura.io/0.15/manual/install-hasura-cli.html) tool installed.
 
-### Step 1: Getting the project
+### Step 1: Clone this project and create a free hasura cluster
 
 ```sh
 $ hasura quickstart karthik/file-sharing-app
-$ cd karthik/file-sharing-app
+$ cd file-sharing-app
 ```
 
 The above command does the following:
-1. Creates a new folder in the current working directory called `karthik/file-sharing-app`
+1. Creates a new folder in the current working directory called `file-sharing-app`
 2. Creates a new trial hasura cluster for you and sets that cluster as the default cluster for this project
-3. Initializes `karthik/file-sharing-app` as a git repository and adds the necessary git remotes.
+3. Initializes `file-sharing-app` as a git repository and adds the necessary git remotes.
 
-### Step 2: Getting cluster information
+### Step 2: Deploy to your new cluster!
 
-Every hasura project is run on a Hasura cluster. To get details about the cluster this project is running on:
-
-```sh
-$ hasura cluster status
-```
-
-This will give you your cluster status like so
-
-```sh
-INFO Status:                                      
-Cluster Name:       h34-ballyhoo30-stg
-Cluster Alias:      hasura
-Kube Context:       h34-ballyhoo30-stg
-Platform Version:   v0.15.3
-Cluster State:      Synced
-```
-
-Keep a note of your cluster name. Alternatively, you can also go to your [hasura dashboard](https://dashboard.hasura.io) and see the clusters you have.
-
-### Step 3: Deploying on a hasura cluster
-
-```sh
+```bash
 $ git add .
 $ git commit -m "Initial Commit"
 $ git push hasura master
 ```
 
-## Configuring the file store API
+-----------------
 
-File APIs on Hasura lets users upload and store files on a Hasura project and also download when required. The API exposes upload, download and delete methods as well as provide permission options based on user’s ID or Role to decide who can create, read or delete files.
+## Project structure
 
-It comes with three default hook urls readily available to be used with any project. Checkout [https://docs.hasura.io/0.15/manual/files/permission.html](link) for more info
+This Hasura project contains the following:
 
-Since our logic is entirely dependent on our database state(Who owns the file and who it is shared with), we will write our own custom hook. 
-This quickstart project consists of a nodejs-express application which implements this custom hook. 
+1. `migrations/`: This contains the schema of the data model for file sharing
+  - 3 tables: `user`, `user_file` and `file_share`
+2. `microservices/file-check`: A nodejs microservice which implements a permissions webhook API
+3. `conf/filestore.yaml`: Configure hasura filestore APIs to use a custom permission webhook
 
+More details about how this application works are available in the last section of this README.
 
-## Demo
+-----------------
 
-To test this application, lets create two users as follows
+## Test the APIs
 
-User can be created by using Hasura Auth API's as follows. Checkout [this](https://docs.hasura.io/0.15/manual/users/index.html) link to know more about Hasura Auth API's
-
-### To create user 1
-
-#### Request
-
-```http
-
-curl -X POST -H "Content-Type: application/json" -d '{
-    "provider": "username",
-    "data": {
-        "username": "user1",
-        "password": "user@123"
-    }
-}' "https://auth.h34-ballyhoo30-stg.hasura-app.io/v1/signup"
-
+To test and browse the APIs that are deployed, open up the api-console:
+```bash
+$ hasura api-console
 ```
 
-#### Response:
+This will open up the API console on `http://localhost:9695` and will allow you to start testing your APIs.
 
-```
-{
-	"auth_token": "805daf29f8042ed2870b785db2ad69560e397174bb1a12b9",
-		"username": "user1",
-		"hasura_id": 4,
-		"hasura_roles": [
-			"user"
-		]
-}
-```
+### Step 1: Create 2 users
 
-Lets note down the `hasura_id` and `auth_token` for future reference
+On the API console, head to the API explorer. On the sidebar, choose the `Auth > Username/password login > Signup` API and create 2 users using the Hasura Auth APIs.
 
-Lets create an application user using the Hasura Data API's as follows. Checkout [this](https://docs.hasura.io/0.15/manual/data/index.html) link to know more about Hasura Data API's
+Let's say the first username is `alice` and the second is `bob`.
 
-#### Request
+_insert image here_
 
-```http
 
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 805daf29f8042ed2870b785db2ad69560e397174bb1a12b9" -d '{
-    "type": "insert",
-    "args": {
-        "table": "user",
-        "objects": [
-            {
-                "id": "4",
-                "email": "user1@hasura.io"
-            }
-        ],
-        "returning": [
-            "id",
-            "email"
-        ]
-    }
-}' "https://data.h34-ballyhoo30-stg.hasura-app.io/v1/query"
+Note that each successful registration request (using the basic username/password provider) will return an `authorization token`, and `user_id` that identifies the particular user in subsequent API requests.
 
-```
+_insert tokens here_
 
-#### Response
+### Step 2: Upload a file as `alice`
 
-```
+#### Use the filestore API to upload
 
-{
-	"affected_rows": 1,
-	"returning": [
-		{
-			"id": 4,
-			"email": "user1@hasura.io"
-		}
-	]
-}
+_insert image here_
 
-```
+#### Use the data API to store metadata and filesharing info
 
-### Lets create user 2 in the same way as above
+Track the file uploaded by `alice` and the fact that she has shared it with `bob`
 
-#### Request
+_insert image here_
 
-```http
+#### Make a file download API request as `bob`
 
-curl -X POST -H "Content-Type: application/json" -d '{
-    "provider": "username",
-    "data": {
-        "username": "user2",
-        "password": "user@123"
-    }
-}' "https://auth.h34-ballyhoo30-stg.hasura-app.io/v1/signup"
+_insert image here_
 
-```
+#### Make a file download API request as `anonymous` or another user
 
-#### Response:
+_insert image here_
 
-```
+-----------------
 
-{
-    "auth_token": "43bbd9f5eab9c9b82d17d9836e1d866a52103b0fa2e9c1c1",
-    "username": "user2",
-    "hasura_id": 5,
-    "hasura_roles": [
-        "user"
-    ]
-}
+## How these APIs work
 
-```
+Apart from the Hasura auth APIs and the data APIs, the key in making the file sharing permissions work is the webhook that allow secure sharing.
 
-Again lets note down the `hasura_id` and `auth_token` for future reference
+By default the Hasura filestore APIs allow private only, or public permissions. To customise these settings, a permission webhook is used.
 
-Create an application user
+When a file download API request is made, the filestore APIs call the hook and determine if the file download should be allowed.
 
-#### Request
+Here is the code in `server.js`:
 
-```http
+```javascript
 
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 43bbd9f5eab9c9b82d17d9836e1d866a52103b0fa2e9c1c1" -d '{
-    "type": "insert",
-    "args": {
-        "table": "user",
-        "objects": [
-            {
-                "id": "5",
-                "email": "user2@hasura.io"
-            }
-        ],
-        "returning": [
-            "id",
-            "email"
-        ]
-    }
-}' "https://data.h34-ballyhoo30-stg.hasura-app.io/v1/query"
+app.get('/check_req', function( req, res ) {
+  if ( req.query.file_op === 'read' ) {
+    const file_id = req.query.file_id;
+    const user_id = req.headers['x-hasura-user-id'];
 
-```
-
-#### Response
-
-```
-
-{
-	"affected_rows": 1,
-	"returning": [
-		{
-			"id": 5,
-			"email": "user2@hasura.io"
-		}
-	]
-}
-
-```
-
-Lets upload file assuming as user 1. Please note that we are using the auth_token of `user1` in the following request to upload a file
-#### Request
-
-```http
-
-curl -X POST -H "Authorization: Bearer 805daf29f8042ed2870b785db2ad69560e397174bb1a12b9"  --data-binary @/home/karthik/Documents/Screenshots/genCode.jpg  "https://filestore.h34-ballyhoo30-stg.hasura-app.io/v1/file"
-
-```
-
-#### Response
-
-```
-
-{
-    "file_id": "933470ad-feeb-4dcc-9f40-8ec4bcc7c0c1",
-    "user_id": 4,
-    "user_role": "user",
-    "content_type": "image/jpeg",
-    "file_status": "uploaded",
-    "created_at": "2017-11-08T18:57:00.451737676Z",
-    "file_size": 145089
-}
-
-```
-
-Now the file is successfully created by the Hasura file store API. Lets store the file id with us
-
-#### Request
-
-```http
-
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 805daf29f8042ed2870b785db2ad69560e397174bb1a12b9" -d '{
-    "type": "insert",
-    "args": {
-        "table": "user_file",
-        "objects": [
-            {
-                "user_id": "4",
-                "file_id": "933470ad-feeb-4dcc-9f40-8ec4bcc7c0c1"
-            }
-        ],
-        "returning": [
-            "id"
-        ]
-    }
-}' "https://data.h34-ballyhoo30-stg.hasura-app.io/v1/query"
-
-```
-
-#### Response
-
-```http
-
-{
-    "affected_rows": 1,
-    "returning": [
-        {
-            "id": 3
+    // Use the data APIs to check if the user requesting the file is one of the shared_users for this file
+    const queryObj = {
+      type: 'select',
+      args: {
+        table: 'user_file',
+        columns: ['id'],
+        where: { 'file_id': file_id,
+          '$or': [
+            {'user_id': parseInt(user_id, 10)},
+            {'shared_users': { 'shared_user_id': parseInt(user_id, 10)}}
+          ]
         }
-    ]
-}
+      }
+    };
 
+    // Make this API call to the database and get the resultant 'rows'
+    //...
+    
+    // Check the response and allow or disallow
+    if ( rows.length > 0 ) {
+        res.status(200).send('ok');
+        return;
+      }
+      res.status(403).send('notok');
+      return;
 ```
 
-Lets try to access the uploaded file by assuming as user 2. Please note that the `auth_token` used in the following request is the `auth_token` of user 2 created before
+Now that we have this webhook deployed in a microservice called `file-check`, we configure the filestore API to use this webhook in `conf/filestore.yaml`:
 
-#### Request
-
+```yaml
+hookUrl: http://file-check.default/check_req
 ```
 
-curl -X GET -H "Authorization: Bearer 43bbd9f5eab9c9b82d17d9836e1d866a52103b0fa2e9c1c1" --output ./sample "https://filestore.h34-ballyhoo30-stg.hasura-app.io/v1/file/933470ad-feeb-4dcc-9f40-8ec4bcc7c0c1"
+## The schema required for this application
 
-```
-
-#### Response
-
-```
-
-$ cat sample 
-
-> {"message":"invalid authorization token"}
-
-```
-
-Oops, Lets share the file with user 2. To do this add an entry in the `file_share` table with the `shared_user_id` set to the user 2's id and `user_file_id` set to the user 1's file
-
-#### Request
-
-```http
-
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 805daf29f8042ed2870b785db2ad69560e397174bb1a12b9" -d '{
-    "type": "insert",
-    "args": {
-        "table": "file_share",
-        "objects": [
-            {
-                "shared_user_id": "5",
-                "user_file_id": "3"
-            }
-        ],
-        "returning": [
-            "shared_user_id",
-            "user_file_id"
-        ]
-    }
-}' "https://data.h34-ballyhoo30-stg.hasura-app.io/v1/query"
-
-```
-
-#### Response
-
-```
-
-{
-    "affected_rows": 1,
-    "returning": [
-        {
-            "shared_user_id": 5,
-            "user_file_id": 3
-        }
-    ]
-}
-
-```
-
-Lets try to download again
-
-#### Request
-
-```
-
-curl -X GET -H "Authorization: Bearer 43bbd9f5eab9c9b82d17d9836e1d866a52103b0fa2e9c1c1" --output ./sample "https://filestore.h34-ballyhoo30-stg.hasura-app.io/v1/file/933470ad-feeb-4dcc-9f40-8ec4bcc7c0c1"
-
-```
-
-#### Response
-
-```
-
-<file content>
-
-```
-
-Lets open the file and check. Wooohooooo magiccc!!!
+_insert image here_
