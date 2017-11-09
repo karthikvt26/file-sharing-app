@@ -26,14 +26,14 @@ Follow this section to get this project working. Before you begin, ensure you ha
 ### Step 1: Getting the project
 
 ```sh
-$ hasura quickstart hello-nodejs-express
-$ cd hello-nodejs-express
+$ hasura quickstart karthik/file-sharing-app
+$ cd karthik/file-sharing-app
 ```
 
 The above command does the following:
-1. Creates a new folder in the current working directory called `hello-nodejs-express`
+1. Creates a new folder in the current working directory called `karthik/file-sharing-app`
 2. Creates a new trial hasura cluster for you and sets that cluster as the default cluster for this project
-3. Initializes `hello-nodejs-express` as a git repository and adds the necessary git remotes.
+3. Initializes `karthik/file-sharing-app` as a git repository and adds the necessary git remotes.
 
 ### Step 2: Getting cluster information
 
