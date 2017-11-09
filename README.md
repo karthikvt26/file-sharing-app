@@ -47,9 +47,9 @@ This will give you your cluster status like so
 
 ```sh
 INFO Status:                                      
-Cluster Name:       h34-excise98-stg
+Cluster Name:       h34-ballyhoo30-stg
 Cluster Alias:      hasura
-Kube Context:       h34-excise98-stg
+Kube Context:       h34-ballyhoo30-stg
 Platform Version:   v0.15.3
 Cluster State:      Synced
 ```
