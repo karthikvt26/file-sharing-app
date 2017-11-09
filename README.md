@@ -62,9 +62,9 @@ On the API console, head to the API explorer. On the sidebar, choose the `Auth >
 Let's say the first username is `alice` and the second is `bob`.
 
 
-![Create a hasura user with username as alice](./assets/create_auth_user_alice.jpg "Create a user with username alice")
+![Create a hasura user with username as alice](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/create_auth_user_alice.jpg "Create a user with username alice")
 --------------------------------------------------------------------------------------------------------------------------------
-![Create a hasura user with username as bob](./assets/create_auth_user_bob.jpg "Create a user with username bob")
+![Create a hasura user with username as bob](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/create_auth_user_bob.jpg "Create a user with username bob")
 
 Note that each successful registration request (using the basic username/password provider) will return an `authorization token`, and `user_id` that identifies the particular user in subsequent API requests.
 
@@ -73,29 +73,29 @@ Note that each successful registration request (using the basic username/passwor
 
 #### Use the filestore API to upload
 
-![Alice uploads file](./assets/alice_file_upload.jpg "Alice uploads a file")
+![Alice uploads file](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/alice_file_upload.jpg "Alice uploads a file")
 
 #### Use the data API to store metadata and filesharing info
 
 Track the file uploaded by `alice` and the fact that she has shared it with `bob`
 
-![Create hasura application user for alice](./assets/create_data_user_alice.jpg "Create a hasura application user for alice")
+![Create hasura application user for alice](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/create_data_user_alice.jpg "Create a hasura application user for alice")
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-![Create hasura application user for bob](./assets/create_data_user_bob.jpg "Create a hasura application user for bob")
+![Create hasura application user for bob](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/create_data_user_bob.jpg "Create a hasura application user for bob")
 
 --------------------------------------------------------------------------------------------------------------------------------
 
-![Track the file uploaded by alice](./assets/track_alice_file.jpg "Track the file uploaded by alice")
+![Track the file uploaded by alice](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/track_alice_file.jpg "Track the file uploaded by alice")
 
 #### Make a file download API request as `bob`
 
-![Download the shared file](./assets/download_file_as_bob.jpg "Download the shared file")
+![Download the shared file](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/download_file_as_bob.jpg "Download the shared file")
 
 #### Make a file download API request as `anonymous` or another user
 
-![Track the file uploaded by alice](./assets/download_file_anonymous.jpg "Download image as anonymous")
+![Track the file uploaded by alice](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/download_file_anonymous.jpg "Download image as anonymous")
 
 -----------------
 
@@ -151,4 +151,4 @@ hookUrl: http://file-check.default/check_req
 
 ## The schema required for this application
 
-![Schema](./assets/schema.jpg" Schema")
+![Schema](https://raw.githubusercontent.com/karthikvt26/file-sharing-app/master/assets/schema.jpg "Schema")
