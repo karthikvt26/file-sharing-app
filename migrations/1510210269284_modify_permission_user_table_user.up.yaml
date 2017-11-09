@@ -1,0 +1,21 @@
+- args:
+    role: user
+    table: user
+  type: drop_select_permission
+- args:
+    permission:
+      check:
+        id: REQ_USER_ID
+    role: user
+    table: user
+  type: create_insert_permission
+- args:
+    permission:
+      columns:
+      - id
+      - email
+      filter:
+        id: REQ_USER_ID
+    role: user
+    table: user
+  type: create_select_permission
