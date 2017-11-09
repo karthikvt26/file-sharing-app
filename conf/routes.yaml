@@ -66,16 +66,3 @@ file-check:
       namespace: '{{ cluster.metadata.namespaces.user }}'
     upstreamServicePath: /
     upstreamServicePort: 80
-
-
-
-myapp:
-  /:
-    corsPolicy: allow_all
-    upstreamService:
-      name: myapp
-      namespace: '{{ cluster.metadata.namespaces.user }}'
-    upstreamServicePath: /
-    upstreamServicePort: 80
-
-

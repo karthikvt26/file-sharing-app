@@ -19,9 +19,3 @@ remotes:
       file-check:
         dockerfile: microservices/file-check/Dockerfile
         path: microservices/file-check
-
-
-    '{{ cluster.metadata.namespaces.user }}.myapp':
-      myapp:
-        dockerfile: microservices/myapp/app/Dockerfile
-        path: microservices/myapp/app

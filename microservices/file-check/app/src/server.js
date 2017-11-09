@@ -9,10 +9,6 @@ app.get('/', function (req, res) {
 });
 
 app.get('/check_req', function( req, res ) {
-  console.log('Req body');
-  console.log(req.body);
-  console.log(req.query);
-
   if ( req.query.file_op === 'read' ) {
     const file_id = req.query.file_id;
 
@@ -50,13 +46,8 @@ app.get('/check_req', function( req, res ) {
       }
     }
 
-    console.log('STRIN');
-    console.log(JSON.stringify(options));
-
     return rp(options)
     .then( function( resp ) {
-      console.log('Response');
-      console.log(resp);
       resp = JSON.parse(resp);
       if ( resp.length > 0 ) {
         res.status(200).send('ok');
@@ -66,8 +57,6 @@ app.get('/check_req', function( req, res ) {
       return;
     })
     .catch( function ( resp ) {
-      console.log('error');
-      console.log(resp);
       res.status(403).send('notok');
       return;
     });
