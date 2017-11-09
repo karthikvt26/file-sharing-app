@@ -1,0 +1,22 @@
+- args:
+    permission:
+      check:
+        user_file:
+          user:
+            id: REQ_USER_ID
+    role: user
+    table: file_share
+  type: create_insert_permission
+- args:
+    permission:
+      columns:
+      - user_file_id
+      - shared_user_id
+      - shared_at
+      filter:
+        user_file:
+          user:
+            id: REQ_USER_ID
+    role: user
+    table: file_share
+  type: create_select_permission

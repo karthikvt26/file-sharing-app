@@ -117,7 +117,7 @@ Lets create an application user using the Hasura Data API's as follows. Checkout
 
 ```http
 
-curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 27f9a9c7522c15ddaddcf1033c00c63c0d7477d101fc8fca" -d '{
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer 805daf29f8042ed2870b785db2ad69560e397174bb1a12b9" -d '{
     "type": "insert",
     "args": {
         "table": "user",
